@@ -53,6 +53,7 @@ const RoomContext = createContext<RoomContextType>({
     canSendMessages: false,
     resizing: false,
     layout: Layout.Group,
+    conversationView: false,
     lowBandwidth: false,
     alwaysShowTimestamps: false,
     showTwelveHourTimestamps: false,

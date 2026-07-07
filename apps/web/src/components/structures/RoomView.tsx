@@ -257,6 +257,9 @@ export interface IRoomState {
     tombstone?: MatrixEvent;
     resizing: boolean;
     layout: Layout;
+    // When true (feature_conversation_view), thread replies are rendered inline in the
+    // main timeline instead of being collapsed out of it.
+    conversationView: boolean;
     lowBandwidth: boolean;
     alwaysShowTimestamps: boolean;
     showTwelveHourTimestamps: boolean;
@@ -485,6 +488,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
             canSendMessages: false,
             resizing: false,
             layout: SettingsStore.getValue("layout"),
+            conversationView: SettingsStore.getValue("feature_conversation_view"),
             lowBandwidth: SettingsStore.getValue("lowBandwidth"),
             alwaysShowTimestamps: SettingsStore.getValue("alwaysShowTimestamps"),
             showTwelveHourTimestamps: SettingsStore.getValue("showTwelveHourTimestamps"),
@@ -988,6 +992,9 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
         this.settingWatchers = [
             SettingsStore.watchSetting("layout", null, (...[, , , value]) =>
                 this.setState({ layout: value as Layout }),
+            ),
+            SettingsStore.watchSetting("feature_conversation_view", null, (...[, , , value]) =>
+                this.setState({ conversationView: value as boolean }),
             ),
             SettingsStore.watchSetting("lowBandwidth", null, (...[, , , value]) =>
                 this.setState({ lowBandwidth: value as boolean }),
@@ -2558,6 +2565,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                     <TimelinePanel
                         ref={this.gatherTimelinePanelRef}
                         timelineSet={this.state.room.getUnfilteredTimelineSet()}
+                        hideThreadedMessages={!this.state.conversationView}
                         showReadReceipts={this.state.showReadReceipts}
                         manageReadReceipts={!this.state.isPeeking}
                         sendReadReceiptOnLoad={

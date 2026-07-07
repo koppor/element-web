@@ -478,6 +478,21 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
         });
     }
 
+    /**
+     * True when this tile is a thread reply rendered inline in the main room timeline, which only
+     * happens in Conversations mode (feature_conversation_view). Such tiles get a gray conversation
+     * bar (like Mattermost) so it's clear they belong to a thread rather than being standalone.
+     */
+    private get isInlineThreadReply(): boolean {
+        const { mxEvent } = this.props;
+        const threadRootId = mxEvent.threadRootId;
+        return (
+            this.context.timelineRenderingType === TimelineRenderingType.Room &&
+            !!threadRootId &&
+            threadRootId !== mxEvent.getId()
+        );
+    }
+
     private readonly onViewInRoomClick = (_anchor: HTMLElement | null): void => {
         dis.dispatch<ViewRoomPayload>({
             action: Action.ViewRoom,
@@ -988,7 +1003,9 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
         const eventTileSnapshot = eventTileRenderState.snapshot;
 
         const lineClasses = eventTileRenderState.line.className;
-        const tileClasses = eventTileRenderState.root.className;
+        const tileClasses = this.isInlineThreadReply
+            ? `${eventTileRenderState.root.className} mx_EventTile_threadReply`
+            : eventTileRenderState.root.className;
         const tileAriaLive = eventTileRenderState.root.ariaLive;
         const isRenderingNotification = eventTileRenderState.root.isRenderingNotification;
 

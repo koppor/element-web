@@ -570,6 +570,22 @@ describe("RoomView", () => {
         expect(roomViewInstance.state.liveTimeline).not.toEqual(oldTimeline);
     });
 
+    it("reflects the feature_conversation_view setting and reacts to changes", async () => {
+        const roomViewInstance = await getRoomViewInstance();
+
+        // Disabled by default: thread replies stay hidden from the main timeline
+        // (hideThreadedMessages={!conversationView} => true).
+        expect(roomViewInstance.state.conversationView).toBe(false);
+
+        // Enabling the labs flag flips the state via the setting watcher, which makes the
+        // main TimelinePanel render thread replies inline.
+        await SettingsStore.setValue("feature_conversation_view", null, SettingLevel.DEVICE, true);
+        await waitFor(() => expect(roomViewInstance.state.conversationView).toBe(true));
+
+        await SettingsStore.setValue("feature_conversation_view", null, SettingLevel.DEVICE, false);
+        await waitFor(() => expect(roomViewInstance.state.conversationView).toBe(false));
+    });
+
     it("should update when the e2e status when the user verification changed", async () => {
         room.currentState.setStateEvents([
             mkRoomMemberJoinEvent(cli.getSafeUserId(), room.roomId),

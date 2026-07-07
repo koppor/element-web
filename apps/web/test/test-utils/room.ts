@@ -63,6 +63,7 @@ export function getRoomContext(room: Room, override: Partial<RoomContextType>): 
         canReact: false,
         canSendMessages: false,
         layout: Layout.Group,
+        conversationView: false,
         lowBandwidth: false,
         alwaysShowTimestamps: false,
         userTimezone: undefined,

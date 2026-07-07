@@ -202,6 +202,14 @@ $left-gutter: 64px;
             }
         }
 
+        /* Conversations mode (feature_conversation_view): thread replies rendered inline in the main
+           timeline get a gray bar, like Mattermost, to show they belong to a conversation. Placed
+           before the selected/editing rule below so URL selection still takes priority. */
+        &.mx_EventTile_threadReply > .mx_EventTile_line {
+            box-shadow: inset var(--EventTile-box-shadow-offset-x) 0 0 var(--EventTile-box-shadow-spread-radius)
+                var(--cpd-color-gray-400);
+        }
+
         /* this is used for the tile for the event which is selected via the URL. */
         &.mx_EventTile_isEditing,
         &.mx_EventTile_selected {

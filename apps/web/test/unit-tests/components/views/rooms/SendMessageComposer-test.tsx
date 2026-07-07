@@ -56,6 +56,7 @@ describe("<SendMessageComposer/>", () => {
         canReact: false,
         canSendMessages: false,
         layout: Layout.Group,
+        conversationView: false,
         lowBandwidth: false,
         alwaysShowTimestamps: false,
         showTwelveHourTimestamps: false,

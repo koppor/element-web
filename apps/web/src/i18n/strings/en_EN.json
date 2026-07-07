@@ -1512,6 +1512,7 @@
         "bridge_state_workspace": "Workspace: <networkLink/>",
         "click_for_info": "Click for more info",
         "config_only": "Can only be enabled via config.json.",
+        "conversation_view": "Conversation view",
         "currently_experimental": "Currently experimental.",
         "custom_themes": "Support adding custom themes",
         "dynamic_room_predecessors": "Dynamic room predecessors",
@@ -1524,6 +1525,7 @@
         "experimental_description": "Feeling experimental? Try out our latest ideas in development. These features are not finalised; they may be unstable, may change, or may be dropped altogether. <a>Learn more</a>.",
         "experimental_section": "Early previews",
         "extended_profiles_msc_support": "Requires your server to support MSC4133",
+        "feature_conversation_view_description": "Show thread replies inline in the timeline instead of hiding them, and open the full conversation in a side panel. You still start a conversation with \"Reply in thread\".",
         "feature_disable_call_per_sender_encryption": "Disable per-sender encryption for Element Call",
         "feature_retention": {
             "description": "Automatically remove messages from a room when they reach a configured retention period. Currently only supports reading settings.",
